@@ -4,11 +4,12 @@ export const useApi = () => {
     
     const useReissue = useReissueStore();
     
-    const useCustomFetch = (url: string, customOptions: UseFetchOptions = {}) => {
+    const customUseFetch = (url: string, customOptions: UseFetchOptions = {}) => {
         const interceptors = getInterceptors(customOptions);
         
         try {
-            return $fetch(url, {
+            // return $fetch(url, {
+            return useFetch(url, {
                 retry: 1,
                 retryStatusCodes: [401],
                 ...customOptions,
@@ -20,21 +21,21 @@ export const useApi = () => {
     }
 
     const get = (url: string, customOptions: UseFetchOptions) => {
-        return useCustomFetch(url, {
+        return customUseFetch(url, {
             method: 'GET',
             ...customOptions
         });
     }
     
     const post = async (url: string, customOptions: UseFetchOptions) => {
-        return useCustomFetch(url, {
+        return customUseFetch(url, {
             method: 'POST',
             ...customOptions
         });
     }
     
     const postMultipart = async (url: string, customOptions: UseFetchOptions) => {
-        return useCustomFetch(url, {
+        return customUseFetch(url, {
             method: 'POST',
             ...customOptions
         });
